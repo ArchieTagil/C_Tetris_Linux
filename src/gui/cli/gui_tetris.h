@@ -1,8 +1,10 @@
 #ifndef GUI_DEFINES_TETRIS
 #define GUI_DEFINES_TETRIS
+#define ESC 27
 
 #include <ncurses.h>
 #include "../../brick_game/tetris/tetris.h"
+
 
 void win_init();
 void print_overlay();

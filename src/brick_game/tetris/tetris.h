@@ -1,10 +1,14 @@
 #ifndef DEFINES_TETRIS
 #define DEFINES_TETRIS
 
-#define ESC 27
-
 #include <ncurses.h>
 #include <stdlib.h>
+
+#define ROWS_COUNT 20
+#define COLS_COUNT 10
+
+#define FIGURE_ROWS 4
+#define FIGURE_COLS 4
 
 typedef enum { //fsm states
     START = 0,
@@ -44,6 +48,8 @@ void fsm(tetris_state state, int action, bool *break_flag);
 void print_running_line();
 void perform_start(tetris_state *state);
 void print_next_figure();
-
+void game_info_init(GameInfo_t *game_info);
+GameInfo_t *getInstance_GameInfo();
+void alloc_and_init_multidimensional_matrix(int ***matrix, int rows, int cols);
 
 #endif

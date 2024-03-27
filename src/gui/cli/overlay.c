@@ -5,12 +5,12 @@ void win_init() {
     noecho();
     curs_set(0);
     keypad(stdscr, TRUE);
-    timeout(2);
+    timeout(50);
 }
 
 void print_overlay() {
-    print_rectangle(0, 22, 0, 22);
-    print_rectangle(0, 22, 23, 41);
+    print_rectangle(0, 21, 0, 22);
+    print_rectangle(0, 21, 23, 41);
 
     mvprintw(1, 24, " NEXT FIGURE: ");
     print_rectangle(2, 7, 26, 36);
@@ -21,7 +21,7 @@ void print_overlay() {
     mvprintw(15, 24, " SPEED: 00");
     mvprintw(19, 26, " * PAUSED * ");
     print_running_line();
-    print_next_figure();
+    // print_next_figure();
 }
 
 void print_rectangle(int top_y, int bottom_y, int left_x, int right_x) {
@@ -52,7 +52,10 @@ void print_running_line() {
     int pointer_start_read_string = 1; //need when string must be dissapeared, we read it not from very beggining
     WINDOW *subwindow = newwin(2, 17, 9, 3); //(int nlines, int ncols, int begin_y, int begin_x)
     char *str = "Press enter to start the game. ";
-    while (getch() != 10) {
+
+    tetris_state *state = get_current_state();
+
+    while (*state == BEFORE_START && *state != EXIT_STATE) {
         if (point_to_appear_in_subwindow > 0) mvwprintw(subwindow, 1, point_to_appear_in_subwindow--, "%s", str);
         else mvwprintw(subwindow, 1, point_to_appear_in_subwindow, "%s", &str[pointer_start_read_string++]);
         refresh();
@@ -61,14 +64,18 @@ void print_running_line() {
             pointer_start_read_string = 1;
             point_to_appear_in_subwindow = 15;
         }
+        int key = getch();
+        if (key == ENTER) userInput(Start, 0);
+        if (key == ESC) userInput(Terminate, 0);
     }
     delwin(subwindow);
     timeout(50);
 }
 
 void print_next_figure() {
-    while (getch() != 10)
-    {
+    tetris_state *state = get_current_state();
+
+    if (*state == SPAWN) {
         start_color();
         // init_pair(1, COLOR_BLACK, COLOR_RED);
         // init_pair(2, COLOR_BLACK, COLOR_GREEN);

@@ -23,4 +23,4 @@ clean:
 	@rm -f brick_game/out/* libtetris.a tetris
 
 leaks:
-	valgrind --tool=memcheck --leak-check=yes ./s21_test_string
+	valgrind ./tetris

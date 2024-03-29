@@ -47,9 +47,11 @@ typedef struct {
 typedef struct {
     int **figure_field;
     int x, y; //верхний левый угол
+    int **tmp_field;
+    int figures[7][4][4];
 } figure;
 
-void userInput(UserAction_t action, bool hold);
+void userInput(UserAction_t action, int hold);
 GameInfo_t updateCurrentState();
 
 void print_running_line();
@@ -68,6 +70,12 @@ void shift_left(figure *current_figure);
 void shift_right(figure *current_figure);
 void shift_down(figure *current_figure);
 void shift_up(figure *current_figure);
-bool is_collision(figure current_figure, GameInfo_t game_info);
+int is_collision(figure current_figure, GameInfo_t game_info);
+void print_matrix(int **matrix, int r, int c);
+void matrix_pointer_copy(int ***dst, int **src, int r, int c);
+void figures_init(figure *current_figure);
+int get_figure_bottom (figure current_figure);
+int get_figure_left (figure current_figure);
+int get_figure_right (figure current_figure);
 
 #endif

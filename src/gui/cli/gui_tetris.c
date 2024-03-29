@@ -15,12 +15,14 @@ int main() {
     game_loop();
     free_multidimensional_matrix(game_info->field, ROWS_COUNT);
     free_multidimensional_matrix(game_info->next, FIGURE_ROWS);
+    free_multidimensional_matrix(current_figure->tmp_field, ROWS_COUNT);
     free_multidimensional_matrix(current_figure->figure_field, FIGURE_ROWS);
     endwin();
 }
 
 void game_loop() {
     tetris_state *state = get_current_state();
+    timeout(200);
 
     while (*state != EXIT_STATE) {
         int action = getch();

@@ -77,5 +77,6 @@ void figures_init(figure *current_figure);
 int get_figure_bottom (figure current_figure);
 int get_figure_left (figure current_figure);
 int get_figure_right (figure current_figure);
+void rotate_figure(figure *current_figure);
 
 #endif

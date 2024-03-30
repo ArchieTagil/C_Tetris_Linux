@@ -48,7 +48,10 @@ typedef struct {
     int **figure_field;
     int x, y; //верхний левый угол
     int **tmp_field;
-    int figures[7][4][4];
+    int rotate_value;
+    int current_figure_id;
+    int next_figure_id;
+    int figures[7][4][4][4];
 } figure;
 
 void userInput(UserAction_t action, int hold);
@@ -78,5 +81,8 @@ int get_figure_bottom (figure current_figure);
 int get_figure_left (figure current_figure);
 int get_figure_right (figure current_figure);
 void rotate_figure(figure *current_figure);
+void clean_lines(figure *current_figure, GameInfo_t *game_info);
+int is_line_filled(int i, figure current_figure);
+void drop_line(int i, figure *current_figure);
 
 #endif

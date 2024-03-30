@@ -22,7 +22,7 @@ int main() {
 
 void game_loop() {
     tetris_state *state = get_current_state();
-    timeout(200);
+    timeout(400);
 
     while (*state != EXIT_STATE) {
         int action = getch();

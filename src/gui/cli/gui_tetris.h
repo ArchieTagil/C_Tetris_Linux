@@ -13,5 +13,6 @@ void print_state(GameInfo_t game_info);
 void print_rectangle(int top_y, int bottom_y, int left_x, int right_x);
 void game_loop();
 void clear_window();
+void update_counters(GameInfo_t game_info);
 
 #endif

@@ -7,9 +7,7 @@ int main() {
     tetris_state *state = get_current_state();
     *state = BEFORE_START;
     game_info_init(game_info);
-    // GameInfo_t game_info = updateCurrentState();
     print_state(*game_info);
-    // printw("%d", game_info->next[1][1]);
     print_overlay();
 
     game_loop();
@@ -22,7 +20,8 @@ int main() {
 
 void game_loop() {
     tetris_state *state = get_current_state();
-    timeout(400);
+    GameInfo_t game_info = updateCurrentState();
+    timeout(game_info.speed);
 
     while (*state != EXIT_STATE) {
         int action = getch();
@@ -56,9 +55,25 @@ void game_loop() {
             userInput(Pause, 0);
             break;
         }
-        GameInfo_t game_info = updateCurrentState();
+        if (*state == PAUSE) mvprintw(19, 26, " * PAUSED * ");
+        else                 mvprintw(19, 26, "            ");
+        game_info = updateCurrentState();
         print_state(game_info);
+        update_counters(game_info);
+        if (*state == GAME_OVER) {
+            mvprintw (10, 1, "  G A M E   O V E R ");
+            mvprintw (11, 1, "press enter to start");
+            mvprintw (12, 1, "      new game      ");
+            mvprintw (13, 1, "    or ESC to exit  ");
+        }
     }
+}
+
+void update_counters(GameInfo_t game_info) {
+    mvprintw(9, 24, " HIGH SCORE: %-5d", game_info.high_score);
+    mvprintw(11, 24, " SCORE:      %-5d", game_info.score);
+    mvprintw(13, 24, " LEVEL: %2d", game_info.level);
+    mvprintw(15, 24, " SPEED: %2d", game_info.speed);
 }
 
 void print_state(GameInfo_t game_info) {
@@ -91,7 +106,7 @@ void print_state(GameInfo_t game_info) {
 void clear_window() {
     for (size_t i = 0; i < ROWS_COUNT; i++) {
         for (size_t j = 0; j < COLS_COUNT * 2; j++) {
-            mvprintw(i + 1, j + 1, "*");
+            mvprintw(i + 1, j + 1, " ");
         }
     }
 

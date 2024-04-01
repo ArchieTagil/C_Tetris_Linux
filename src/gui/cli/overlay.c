@@ -9,17 +9,19 @@ void win_init() {
 }
 
 void print_overlay() {
+    GameInfo_t *game_info = getInstance_GameInfo();
+    // tetris_state *state = get_current_state();
     print_rectangle(0, 21, 0, 22);
-    print_rectangle(0, 21, 23, 41);
+    print_rectangle(0, 21, 23, 42);
 
     mvprintw(1, 24, " NEXT FIGURE: ");
     print_rectangle(2, 7, 26, 36);
 
-    mvprintw(9, 24, " HIGH SCORE: 000");
-    mvprintw(11, 24, " SCORE: 000");
-    mvprintw(13, 24, " LEVEL: 00");
-    mvprintw(15, 24, " SPEED: 00");
-    mvprintw(19, 26, " * PAUSED * ");
+    mvprintw(9, 24, " HIGH SCORE: %-5d", game_info->high_score);
+    mvprintw(11, 24, " SCORE:      %-5d", game_info->score);
+    mvprintw(13, 24, " LEVEL: %2d", game_info->level);
+    mvprintw(15, 24, " SPEED: %2d", game_info->speed);
+    // if (*state == PAUSE) mvprintw(19, 26, " * PAUSED * ");
     print_running_line();
     // print_next_figure();
 }

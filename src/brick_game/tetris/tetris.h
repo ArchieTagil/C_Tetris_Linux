@@ -18,7 +18,7 @@ typedef enum { //fsm states
     SPAWN,
     MOVING,
     SHIFTING,
-    ATTACHING,
+    PAUSE,
     GAME_OVER,
     EXIT_STATE
 } tetris_state;
@@ -84,5 +84,10 @@ void rotate_figure(figure *current_figure);
 void clean_lines(figure *current_figure, GameInfo_t *game_info);
 int is_line_filled(int i, figure current_figure);
 void drop_line(int i, figure *current_figure);
+int sideway_collision(figure current_figure, UserAction_t action);
+void increase_score(int count_killed_lines, GameInfo_t *game_info);
+int is_rotate_collision(int **matrix, figure current_figure);
+void data_init(GameInfo_t *game_info);
+void clean_field(GameInfo_t *game_info, figure *current_figure);
 
 #endif

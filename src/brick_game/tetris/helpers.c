@@ -15,19 +15,50 @@ figure *get_figure() {
     return &current_figure;
 }
 
+int sideway_collision(figure current_figure, UserAction_t action) {
+    int result = 0;
+    for (size_t i = 0; i < FIGURE_ROWS; i++) {
+        for (size_t j = 0; j < FIGURE_COLS; j++) {
+            if (current_figure.figure_field[i][j] == 1) {
+                if (action == Right) {
+                    if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x + 1] == 1) result = 1;
+                }
+                if (action == Left) {
+                    if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x - 1] == 1) result = 1;
+                }
+            }
+        }
+    }
+    return result;
+}
+
 void game_info_init(GameInfo_t *game_info) {
     alloc_and_init_multidimensional_matrix(&game_info->field, ROWS_COUNT, COLS_COUNT);
     alloc_and_init_multidimensional_matrix(&game_info->next, FIGURE_ROWS, FIGURE_COLS);
-    game_info->score = 0;
     game_info->high_score = 0;
-    game_info->level = 0;
-    game_info->speed = 0;
-    game_info->pause = 0;
     figure *current_figure = get_figure();
     figures_init(current_figure);
     alloc_and_init_multidimensional_matrix(&current_figure->figure_field, FIGURE_ROWS, FIGURE_COLS);
     alloc_and_init_multidimensional_matrix(&current_figure->tmp_field, ROWS_COUNT, COLS_COUNT);
     get_random_next_figure();
+}
+
+void data_init(GameInfo_t *game_info) {
+    game_info->score = 0;
+    game_info->level = 1;
+    game_info->speed = 400;
+    game_info->pause = 0;
+}
+
+void clean_field(GameInfo_t *game_info, figure *current_figure) {
+    for (size_t i = 0; i < ROWS_COUNT; i++) {
+        for (size_t j = 0; j < COLS_COUNT; j++) {
+            game_info->field[i][j] = 0;
+            current_figure->tmp_field[i][j] = 0;
+        }
+        
+    }
+    
 }
 
 void figures_init(figure *current_figure) {
@@ -208,6 +239,28 @@ void alloc_and_init_multidimensional_matrix(int ***matrix, int rows, int cols) {
             (*matrix)[i][j] = 0;
         }
     }
+}
+
+void drop_line(int i, figure *current_figure) {
+    if (i == 0) {
+        for (size_t j = 0; j < COLS_COUNT; j++) {
+            current_figure->tmp_field[i][j] = 0;
+        }
+    } else {
+        for (size_t k = i; k > 0; k--) {
+            for (size_t j = 0; j < COLS_COUNT; j++) {
+                current_figure->tmp_field[k][j] = current_figure->tmp_field[k-1][j];
+            }
+        }
+    }
+}
+
+int is_line_filled(int i, figure current_figure) {
+    int result = 1;
+    for (size_t j = 0; j < COLS_COUNT; j++) {
+        if (current_figure.tmp_field[i][j] == 0) result = 0; 
+    }
+    return result;
 }
 
 void figure_copy(int ***dst, int src[FIGURE_ROWS][FIGURE_ROWS]) {

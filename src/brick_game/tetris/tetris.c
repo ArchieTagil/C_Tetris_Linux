@@ -16,7 +16,7 @@ void userInput(UserAction_t action, int hold) {
     if (action == Terminate) {
         *state = EXIT_STATE;
     }
-    if (action == Start) {
+    if (action == Start && hold == 0) {
         if (*state == BEFORE_START || *state == GAME_OVER) {
             clean_field(game_info, current_figure);
             game_info->level = 1;
@@ -37,7 +37,6 @@ void userInput(UserAction_t action, int hold) {
         }
     }
     if (action == Action) {
-        figure *current_figure = get_figure();
         rotate_figure(current_figure);
     }
     if (action == Pause) {
@@ -203,18 +202,6 @@ void place_figure_on_the_field(GameInfo_t *game_info, figure current_figure) {
     } 
  }
 
-void shift_left(figure *current_figure) {
-    current_figure->x--;
-} 
-
-void shift_right(figure *current_figure) {
-    current_figure->x++;
-} 
-
 void shift_down(figure *current_figure) {
     current_figure->y++;
-} 
-
-void shift_up(figure *current_figure) {
-    current_figure->y--;
 } 

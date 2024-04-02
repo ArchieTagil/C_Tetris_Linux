@@ -7,20 +7,23 @@ TETRIS_LIB_FUNC = brick_game/out/tetris.o brick_game/out/helpers.o
 det_OS = -lcheck -lm -lpthread -lrt -lsubunit
 
 all: clean s21_tetris.a install
-	@./tetris
+	@./bin/tetris
 
 install:
-	@$(CC) -L. $(ALL_FUNC) -lncurses -ltetris -g -o tetris
+	@$(CC) $(CFLAGS) -L. $(ALL_FUNC) -lncurses -ltetris -g -o ./bin/tetris
 
 brick_game/out/%.o: brick_game/tetris/%.c
-	@$(CC) -g -c $< -o $@
+	@$(CC) $(CFLAGS) -g -c $< -o $@
 
 s21_tetris.a: $(TETRIS_LIB_FUNC)
 	@ar rc libtetris.a brick_game/out/*.o
 	@ranlib libtetris.a
 
 clean:
-	@rm -f brick_game/out/* libtetris.a tetris
+	@rm -f brick_game/out/* libtetris.a bin/tetris
+
+check:
+	@cppcheck --enable=all --suppress=missingIncludeSystem $(ALL_FUNC) brick_game/tetris/*.c
 
 leaks:
 	valgrind ./tetris

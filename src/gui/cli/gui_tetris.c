@@ -58,7 +58,7 @@ void game_loop() {
     }
 }
 
-void do_loop_logic(tetris_state *state, GameInfo_t *game_info) {
+void do_loop_logic(const tetris_state *state, GameInfo_t *game_info) {
     if (*state == PAUSE) mvprintw(19, 26, " * PAUSED * ");
     else                 mvprintw(19, 26, "            ");
     *game_info = updateCurrentState();

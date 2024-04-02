@@ -31,7 +31,7 @@ void print_rectangle(int top_y, int bottom_y, int left_x, int right_x) {
         mvaddch(top_y, i, ACS_HLINE);
     mvaddch(top_y, i, ACS_URCORNER);
 
-    for (int i = top_y + 1; i < bottom_y; i++)
+    for (i = top_y + 1; i < bottom_y; i++)
     {
         mvaddch(i, left_x, ACS_VLINE);
         mvaddch(i, right_x, ACS_VLINE);
@@ -53,7 +53,7 @@ void print_running_line() {
 
     tetris_state *state = get_current_state();
 
-    while (*state == BEFORE_START && *state != EXIT_STATE) {
+    while (*state == BEFORE_START) {
         if (point_to_appear_in_subwindow > 0) mvwprintw(subwindow, 1, point_to_appear_in_subwindow--, "%s", str);
         else mvwprintw(subwindow, 1, point_to_appear_in_subwindow, "%s", &str[pointer_start_read_string++]);
         refresh();
@@ -68,17 +68,4 @@ void print_running_line() {
     }
     delwin(subwindow);
     timeout(50);
-}
-
-void print_next_figure() {
-    tetris_state *state = get_current_state();
-
-    if (*state == SPAWN) {
-        start_color();
-        init_pair(3, COLOR_BLACK, COLOR_YELLOW);
-
-        attron(COLOR_PAIR(3));
-        mvprintw(4, 27, "  ");
-        mvprintw(5, 27, "        ");
-    }
 }

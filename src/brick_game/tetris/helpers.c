@@ -17,9 +17,8 @@ figure *get_figure() {
 
 void save_high_score(int score_value) {
     FILE *fp;
-    if ((fp = fopen("record.txt", "w")) !=NULL) {
-        fprintf(fp, "%d", score_value);
-    }
+    fp = fopen("record.txt", "w");
+    fprintf(fp, "%d", score_value);
     fclose(fp);
 }
 
@@ -247,12 +246,12 @@ void figures_init(figure *current_figure) {
 
 void alloc_and_init_multidimensional_matrix(int ***matrix, int rows, int cols) {
     *matrix = (int**)malloc(rows * sizeof(int*));
-    for (size_t i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; i++) {
         (*matrix)[i] = (int*)malloc(cols * sizeof(int));
     }
 
-    for (size_t i = 0; i < rows; i++) {
-        for (size_t j = 0; j < cols; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             (*matrix)[i][j] = 0;
         }
     }
@@ -297,15 +296,15 @@ void figure_pointer_copy(int ***dst, int **src) {
 }
 
 void free_multidimensional_matrix(int **ptr, int rows) {
-    for (size_t i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; i++) {
         free(ptr[i]);
     }
     free(ptr);
 }
 
 void matrix_pointer_copy(int ***dst, int **src, int r, int c) {
-    for (size_t i = 0; i < r; i++) {
-        for (size_t j = 0; j < c; j++) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
             (*dst)[i][j] = src[i][j];
         }
     }

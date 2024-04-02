@@ -311,14 +311,6 @@ void matrix_pointer_copy(int ***dst, int **src, int r, int c) {
     }
 }
 
-void print_matrix(int **matrix, int r, int c) {
-    for (size_t i = 0; i < r; i++) {
-        for (size_t j = 0; j < c; j++) {
-            mvprintw(i, 80 + j, "%d", matrix[i][j]);
-        }       
-    }
-}
-
 int get_figure_bottom (figure current_figure) {
     int result = 0;
     int result_found = 0;

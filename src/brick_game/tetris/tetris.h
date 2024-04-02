@@ -17,7 +17,6 @@ typedef enum { //fsm states
     BEFORE_START,
     SPAWN,
     MOVING,
-    SHIFTING,
     PAUSE,
     GAME_OVER,
     EXIT_STATE
@@ -93,5 +92,9 @@ void update_level(GameInfo_t *game_info);
 void update_speed(GameInfo_t *game_info);
 void save_high_score(int score_value);
 int read_high_score();
+void perform_moving(GameInfo_t *game_info, figure *current_figure, tetris_state *state);
+void perform_spawn(GameInfo_t *game_info, figure *current_figure, tetris_state *state);
+void perform_game_over(GameInfo_t *game_info);
+void perform_pause(tetris_state *state);
 
 #endif

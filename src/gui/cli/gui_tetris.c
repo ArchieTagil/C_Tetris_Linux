@@ -21,9 +21,9 @@ int main() {
 void game_loop() {
     tetris_state *state = get_current_state();
     GameInfo_t game_info = updateCurrentState();
-    timeout(game_info.speed);
 
     while (*state != EXIT_STATE) {
+        timeout(game_info.speed);
         int action = getch();
         mvprintw(1, 45, "current state is %d ", *state);
         switch (action) {

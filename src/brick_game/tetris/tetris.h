@@ -89,5 +89,9 @@ void increase_score(int count_killed_lines, GameInfo_t *game_info);
 int is_rotate_collision(int **matrix, figure current_figure);
 void data_init(GameInfo_t *game_info);
 void clean_field(GameInfo_t *game_info, figure *current_figure);
+void update_level(GameInfo_t *game_info);
+void update_speed(GameInfo_t *game_info);
+void save_high_score(int score_value);
+int read_high_score();
 
 #endif

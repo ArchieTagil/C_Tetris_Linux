@@ -22,7 +22,6 @@ void userInput(UserAction_t action, int hold) {
     if (action == Start) {
         if (*state == BEFORE_START || *state == GAME_OVER) {
             clean_field(game_info, current_figure);
-            data_init(game_info);
             *state = SPAWN;
         }
     }
@@ -57,6 +56,10 @@ void userInput(UserAction_t action, int hold) {
             *state = PAUSE;
         } 
     }
+
+    if (action == Down) {
+        game_info->speed = 25;
+    }
 }
 
 GameInfo_t updateCurrentState() {
@@ -65,6 +68,7 @@ GameInfo_t updateCurrentState() {
     figure *current_figure = get_figure();
 
     if (*state == SPAWN) {
+        game_info->speed = 435 - 100 * game_info->level;
         figure_pointer_copy(&current_figure->figure_field, game_info->next); //переносим фигуру из next на матрицу фигуры для current_figure
         current_figure->current_figure_id = current_figure->next_figure_id; //id из следующей фигуры делаем текущим
         current_figure->rotate_value = 0; //инициализируем начальный индекс вращения фигуры
@@ -81,24 +85,41 @@ GameInfo_t updateCurrentState() {
     }
 
     if (*state == MOVING) {
-        clean_lines(current_figure, game_info);
+        update_level(game_info);
+        update_speed(game_info);
         mvprintw(8, 45, "current figure id = %d", current_figure->current_figure_id);
         mvprintw(9, 45, "next figure id = %d", current_figure->next_figure_id);
         mvprintw(10, 45, "rotate index = %d", current_figure->rotate_value);
 
         int collision_code = is_collision(*current_figure, *game_info);
 
-        if (collision_code == 0)
+        if (collision_code == 0) {
             shift_down(current_figure);
+        }
         else
             *state = SPAWN;
 
         matrix_pointer_copy(&game_info->field, current_figure->tmp_field, ROWS_COUNT, COLS_COUNT);
         place_figure_on_the_field(game_info, *current_figure);
         print_matrix(current_figure->tmp_field, 20, 10);
+        clean_lines(current_figure, game_info);
+    }
 
+    if (*state == GAME_OVER) {
+        if (game_info->score > read_high_score()) {
+            save_high_score(game_info->score);
+            game_info->high_score = game_info->score;
+        }
     }
     return *game_info;
+}
+
+void update_level(GameInfo_t *game_info) {
+    if (game_info->level < 10) game_info->level = game_info->score / 600 + 1;
+}
+
+void update_speed(GameInfo_t *game_info) {
+    if (game_info->speed != 25) game_info->speed = 435 - 35 * game_info->level;
 }
 
 void clean_lines(figure *current_figure, GameInfo_t *game_info) {

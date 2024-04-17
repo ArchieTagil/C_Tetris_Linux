@@ -56,7 +56,6 @@ typedef struct {
 void userInput(UserAction_t action, int hold);
 GameInfo_t updateCurrentState();
 
-void print_running_line();
 void print_next_figure();
 void game_info_init(GameInfo_t *game_info);
 GameInfo_t *getInstance_GameInfo();
@@ -68,12 +67,12 @@ void figure_pointer_copy(int ***dst, int **src);
 void get_random_next_figure();
 figure *get_figure();
 void place_figure_on_the_field(GameInfo_t *game_info, figure current_figure);
-void shift_left(figure *current_figure);
-void shift_right(figure *current_figure);
+// void shift_left(figure *current_figure);
+// void shift_right(figure *current_figure);
 void shift_down(figure *current_figure);
-void shift_up(figure *current_figure);
+// void shift_up(figure *current_figure);
 int is_collision(figure current_figure, GameInfo_t game_info);
-void print_matrix(int **matrix, int r, int c);
+// void print_matrix(int **matrix, int r, int c);
 void matrix_pointer_copy(int ***dst, int **src, int r, int c);
 void figures_init(figure *current_figure);
 int get_figure_bottom (figure current_figure);

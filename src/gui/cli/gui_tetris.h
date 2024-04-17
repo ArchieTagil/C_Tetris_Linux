@@ -9,6 +9,7 @@
 
 void win_init();
 void print_overlay();
+void print_running_line();
 void print_state(GameInfo_t game_info);
 void print_rectangle(int top_y, int bottom_y, int left_x, int right_x);
 void game_loop();

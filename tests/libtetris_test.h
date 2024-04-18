@@ -10,5 +10,6 @@ int run_testcase(Suite *testcase);
 void run_tests(void);
 Suite *tetris_test_suite();
 Suite *tetris_helpers_test_suite();
+void clean_matrix(int ***matrix, int rows, int cols);
 
 #endif

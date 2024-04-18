@@ -1,7 +1,14 @@
 #include "libtetris_test.h"
 
 int main(void) {
+  GameInfo_t *game_info = getInstance_GameInfo();
+  figure *current_figure = get_figure();
+  game_info_init(game_info);
   run_tests();
+  free_multidimensional_matrix(game_info->field, ROWS_COUNT);
+  free_multidimensional_matrix(game_info->next, FIGURE_ROWS);
+  free_multidimensional_matrix(current_figure->tmp_field, ROWS_COUNT);
+  free_multidimensional_matrix(current_figure->figure_field, FIGURE_ROWS);
   return 0;
 }
 
@@ -30,4 +37,12 @@ void run_tests(void) {
   }
   printf("\e[32mSuccess: %d\e[0m\n\e[31mFailures: %d\e[0m\n", number_success,
          number_failed);
+}
+
+void clean_matrix(int ***matrix, int rows, int cols) {
+  for (size_t i = 0; i < rows; i++) {
+    for (size_t j = 0; j < cols; j++) {
+      (*matrix)[i][j] = 0;
+    }
+  }
 }

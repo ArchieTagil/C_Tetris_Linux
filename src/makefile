@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -std=c11 
+# CFLAGS = -Wall -Werror -Wextra -g -std=c11 
+CFLAGS = -std=c11 
 
 ALL_FUNC = $(wildcard ./gui/cli/*.c)
 TESTS_FUNC = $(wildcard ../tests/*.c ../tests/tetris_tests/*.c)

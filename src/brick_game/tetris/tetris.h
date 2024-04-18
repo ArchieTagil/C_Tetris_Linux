@@ -1,6 +1,18 @@
 #ifndef DEFINES_TETRIS
 #define DEFINES_TETRIS
 
+/**
+ * @brief Entry point
+ *
+ * Execution of the program
+ * starts here.
+ *
+ * @param argc Number of arguments
+ * @param argv List of arguments
+ *
+ * @return Program exit status
+ */
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include <unistd.h>

@@ -1,14 +1,5 @@
 #include "../libtetris_test.h"
 
-void print_matrix(int **matrix, int r, int c) {
-    for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
-            printf("%d", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
-
 START_TEST(test1) {
     tetris_state *state = get_current_state();
     *state = MOVING; 
@@ -26,7 +17,9 @@ START_TEST(test2) {
 START_TEST(test3) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->figure_field, 4, 4);
+    clean_matrix(&game_info->field, 20, 10);
+    clean_matrix(&current_figure->tmp_field, 20, 10);
     current_figure->x = 5;
 
     userInput(Left, 0);
@@ -36,7 +29,9 @@ START_TEST(test3) {
 START_TEST(test4) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->figure_field, 4, 4);
+    clean_matrix(&game_info->field, 20, 10);
+    clean_matrix(&current_figure->tmp_field, 20, 10);
     current_figure->x = 5;
 
     userInput(Right, 0);
@@ -60,7 +55,6 @@ START_TEST(test6) {
 START_TEST(test7) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     current_figure->current_figure_id = 1;
     current_figure->x = 5;
     current_figure->y = 10;
@@ -82,7 +76,6 @@ START_TEST(test7) {
 
 START_TEST(test8) {
     GameInfo_t *game_info = getInstance_GameInfo();
-    game_info_init(game_info);
     tetris_state *state = get_current_state();
     *state = GAME_OVER;
     save_high_score(100);
@@ -95,7 +88,6 @@ START_TEST(test8) {
 
 START_TEST(test9) {
     GameInfo_t *game_info = getInstance_GameInfo();
-    game_info_init(game_info);
     tetris_state *state = get_current_state();
     *state = SPAWN;
     updateCurrentState();

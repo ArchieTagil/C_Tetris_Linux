@@ -6,7 +6,6 @@
 #include <ncurses.h>
 #include "../../brick_game/tetris/tetris.h"
 
-
 void win_init();
 void print_overlay();
 void print_running_line();

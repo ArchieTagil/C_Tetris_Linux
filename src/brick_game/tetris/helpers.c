@@ -38,10 +38,18 @@ int sideway_collision(figure current_figure, UserAction_t action) {
         for (size_t j = 0; j < FIGURE_COLS; j++) {
             if (current_figure.figure_field[i][j] == 1) {
                 if (action == Right) {
-                    if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x + 1] == 1) result = 1;
+                    if (i + current_figure.y < 19 && j + current_figure.x + 1 < 10) {
+                        if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x + 1] == 1) result = 1;
+                    } else {
+                        result = 1;
+                    }
                 }
                 if (action == Left) {
-                    if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x - 1] == 1) result = 1;
+                    if (i + current_figure.y < 19 && j + current_figure.x - 1 >= 0) {
+                        if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x - 1] == 1) result = 1;
+                    } else {
+                        result = 1;
+                    }
                 }
             }
         }
@@ -341,7 +349,7 @@ int get_figure_left (figure current_figure) {
 int get_figure_right (figure current_figure) {
     int result = 0;
     int result_found = 0;
-    for (int i = FIGURE_ROWS; i >= 0; i--) {
+    for (int i = FIGURE_ROWS-1; i >= 0; i--) {
         for (int j = 0; j < FIGURE_COLS; j++) {
             if (current_figure.figure_field[j][i] == 1 && result_found == 0) {
                 result_found = 1;

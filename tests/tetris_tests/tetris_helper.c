@@ -2,7 +2,6 @@
 
 START_TEST(test_gameinfo_init) {
     GameInfo_t *game_info = getInstance_GameInfo();
-    game_info_init(game_info);
     ck_assert_int_eq(game_info->level, 1);
     ck_assert_int_eq(game_info->speed, 400);
     ck_assert_int_eq(game_info->pause, 0);
@@ -18,15 +17,11 @@ START_TEST(test_gameinfo_init) {
             ck_assert_int_le(game_info->next[i][j], 1);
         }
     }
-
-    free_multidimensional_matrix(game_info->field, ROWS_COUNT);
-    free_multidimensional_matrix(game_info->next, FIGURE_ROWS);
 }
 
 START_TEST(test_figure_init) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     ck_assert_ptr_nonnull(current_figure);
 }
 
@@ -39,7 +34,6 @@ START_TEST(test_save_and_read_hight_score) {
 START_TEST(test_sideway_collision_1) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < FIGURE_ROWS; i++) { //фигура вся из единиц
         for (size_t j = 0; j < FIGURE_COLS; j++) {
             current_figure->figure_field[i][j] = 1;
@@ -61,7 +55,6 @@ START_TEST(test_sideway_collision_1) {
 START_TEST(test_sideway_collision_2) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < FIGURE_ROWS; i++) { //фигура вся из единиц
         for (size_t j = 0; j < FIGURE_COLS; j++) {
             current_figure->figure_field[i][j] = 1;
@@ -88,7 +81,6 @@ START_TEST(test_get_state) {
 START_TEST(test_clean_figure) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < ROWS_COUNT; i++) { //поле всё из единиц
         for (size_t j = 0; j < COLS_COUNT; j++) {
             game_info->field[i][j] = 1;
@@ -119,7 +111,6 @@ START_TEST(test_clean_figure) {
 START_TEST(test_is_line_filled) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < ROWS_COUNT; i++) { //нижняя граница заполнена
         for (size_t j = 0; j < COLS_COUNT; j++) {
             if (i == 19) current_figure->tmp_field[i][j] = 1;
@@ -132,7 +123,6 @@ START_TEST(test_is_line_filled) {
 START_TEST(test_matrix_pointer_copy) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < ROWS_COUNT; i++) { //поле всё из единиц
         for (size_t j = 0; j < COLS_COUNT; j++) {
             game_info->field[i][j] = 1;
@@ -150,7 +140,6 @@ START_TEST(test_matrix_pointer_copy) {
 START_TEST(test_figure_pointer_copy) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
     for (size_t i = 0; i < FIGURE_ROWS; i++) { //следующая фигура из единиц
         for (size_t j = 0; j < FIGURE_COLS; j++) {
             game_info->next[i][j] = 1;
@@ -168,7 +157,7 @@ START_TEST(test_figure_pointer_copy) {
 START_TEST(test_get_figure_bottom) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->figure_field, 4, 4);
     current_figure->figure_field[3][3] = 1;
     int test_var = get_figure_bottom(*current_figure);
     ck_assert_int_eq(test_var, 3);
@@ -177,7 +166,7 @@ START_TEST(test_get_figure_bottom) {
 START_TEST(test_get_figure_left) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->figure_field, 4, 4);
     current_figure->figure_field[3][3] = 1;
     int test_var = get_figure_left(*current_figure);
     ck_assert_int_eq(test_var, 3);
@@ -186,7 +175,7 @@ START_TEST(test_get_figure_left) {
 START_TEST(test_get_figure_right) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->figure_field, 4, 4);
     current_figure->figure_field[3][3] = 1;
     int test_var = get_figure_right(*current_figure);
     ck_assert_int_eq(test_var, 3);
@@ -195,7 +184,7 @@ START_TEST(test_get_figure_right) {
 START_TEST(test_drop_line_1) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->tmp_field, 20, 10);
     for (size_t i = 0; i < COLS_COUNT; i++) {
         current_figure->tmp_field[0][i] = 1;
     }
@@ -208,7 +197,7 @@ START_TEST(test_drop_line_1) {
 START_TEST(test_drop_line_2) {
     GameInfo_t *game_info = getInstance_GameInfo();
     figure *current_figure = get_figure();
-    game_info_init(game_info);
+    clean_matrix(&current_figure->tmp_field, 20, 10);
     for (size_t i = 0; i < COLS_COUNT; i++) {
         current_figure->tmp_field[19][i] = 1;
     }

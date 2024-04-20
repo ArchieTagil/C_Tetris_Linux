@@ -23,6 +23,10 @@ test: clean s21_tetris.a
 	@$(CC) $(CFLAGS) -L. $(TESTS_FUNC) -ltetris -o ./bin/tetris_test $(LIBS)
 	@./bin/tetris_test
 
+dvi:
+	@doxygen docs/Doxyfile
+	@open docs/html/index.html
+
 gcov_report: clean
 	@$(CC) $(CFLAGS) $(GCOV_FLAGS) $(TESTS_FUNC) ./brick_game/tetris/*.c $(LIBS) -o ./bin/tetris --coverage
 	@./bin/tetris
@@ -41,7 +45,7 @@ s21_tetris.a: $(TETRIS_LIB_FUNC)
 
 clean:
 	@rm -f brick_game/out/* libtetris.a bin/tetris ./bin/*.gcno ./bin/*.gcda *.gcno *.gcda tetris.info ./bin/tetris_test
-	@rm -fr report
+	@rm -fr report ./docs/html
 
 check:
 	@cppcheck --enable=all --suppress=missingIncludeSystem $(ALL_FUNC) brick_game/tetris/*.c

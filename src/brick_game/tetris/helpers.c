@@ -45,7 +45,7 @@ int sideway_collision(figure current_figure, UserAction_t action) {
                     }
                 }
                 if (action == Left) {
-                    if (i + current_figure.y < 19 && j + current_figure.x - 1 >= 0) {
+                    if (i + current_figure.y < 19) {
                         if (current_figure.tmp_field[i + current_figure.y][j + current_figure.x - 1] == 1) result = 1;
                     } else {
                         result = 1;

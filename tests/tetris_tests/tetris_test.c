@@ -53,7 +53,6 @@ START_TEST(test6) {
 }
 
 START_TEST(test7) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   current_figure->current_figure_id = 1;
   current_figure->x = 5;
@@ -92,7 +91,6 @@ START_TEST(test8) {
 }
 
 START_TEST(test9) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   tetris_state *state = get_current_state();
   *state = SPAWN;
   updateCurrentState();

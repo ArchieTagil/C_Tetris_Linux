@@ -41,8 +41,8 @@ void run_tests(void) {
 }
 
 void clean_matrix(int ***matrix, int rows, int cols) {
-  for (size_t i = 0; i < rows; i++) {
-    for (size_t j = 0; j < cols; j++) {
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
       (*matrix)[i][j] = 0;
     }
   }

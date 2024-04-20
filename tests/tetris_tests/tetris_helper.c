@@ -20,7 +20,6 @@ START_TEST(test_gameinfo_init) {
 }
 
 START_TEST(test_figure_init) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   ck_assert_ptr_nonnull(current_figure);
 }
@@ -32,7 +31,6 @@ START_TEST(test_save_and_read_hight_score) {
 }
 
 START_TEST(test_sideway_collision_1) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   for (size_t i = 0; i < FIGURE_ROWS; i++) {  //фигура вся из единиц
     for (size_t j = 0; j < FIGURE_COLS; j++) {
@@ -54,7 +52,6 @@ START_TEST(test_sideway_collision_1) {
 }
 
 START_TEST(test_sideway_collision_2) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   for (size_t i = 0; i < FIGURE_ROWS; i++) {  //фигура вся из единиц
     for (size_t j = 0; j < FIGURE_COLS; j++) {
@@ -112,7 +109,6 @@ START_TEST(test_clean_figure) {
 }
 
 START_TEST(test_is_line_filled) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   for (size_t i = 0; i < ROWS_COUNT; i++) {  //нижняя граница заполнена
     for (size_t j = 0; j < COLS_COUNT; j++) {
@@ -160,7 +156,6 @@ START_TEST(test_figure_pointer_copy) {
 }
 
 START_TEST(test_get_figure_bottom) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   clean_matrix(&current_figure->figure_field, 4, 4);
   current_figure->figure_field[3][3] = 1;
@@ -169,7 +164,6 @@ START_TEST(test_get_figure_bottom) {
 }
 
 START_TEST(test_get_figure_left) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   clean_matrix(&current_figure->figure_field, 4, 4);
   current_figure->figure_field[3][3] = 1;
@@ -178,7 +172,6 @@ START_TEST(test_get_figure_left) {
 }
 
 START_TEST(test_get_figure_right) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   clean_matrix(&current_figure->figure_field, 4, 4);
   current_figure->figure_field[3][3] = 1;
@@ -187,7 +180,6 @@ START_TEST(test_get_figure_right) {
 }
 
 START_TEST(test_drop_line_1) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   clean_matrix(&current_figure->tmp_field, 20, 10);
   for (size_t i = 0; i < COLS_COUNT; i++) {
@@ -200,7 +192,6 @@ START_TEST(test_drop_line_1) {
 }
 
 START_TEST(test_drop_line_2) {
-  GameInfo_t *game_info = getInstance_GameInfo();
   figure *current_figure = get_figure();
   clean_matrix(&current_figure->tmp_field, 20, 10);
   for (size_t i = 0; i < COLS_COUNT; i++) {

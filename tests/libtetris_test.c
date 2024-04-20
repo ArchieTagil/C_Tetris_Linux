@@ -25,7 +25,8 @@ int run_testcase(Suite *testcase) {
 }
 
 void run_tests(void) {
-  Suite *list_cases[] = {tetris_helpers_test_suite(), tetris_test_suite(), NULL};
+  Suite *list_cases[] = {tetris_helpers_test_suite(), tetris_test_suite(),
+                         NULL};
   int number_failed = 0;
   int number_success = 0;
   for (Suite **current_testcase = list_cases; *current_testcase != NULL;
